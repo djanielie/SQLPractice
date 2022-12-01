@@ -140,14 +140,13 @@ END $$
 
 
 
-))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-les requettes maintenant
+---------------------------------- Query time now
+
 
 
 select * from db_customer cust left  join db_payments pym
  on cust.customer_code=pym.customer_code
- 
- 
+  
  
 select shcol.code_shipping as Code_Shipping, shcol.expedition_date as Date_Expedition,
 dest.nom_destination as Destination,shcol.shipping_status as Status_Shipping,
@@ -200,8 +199,6 @@ select * from ( select ship.code_shipping,ship.expedition_date,ship.destination,
  from db_shipping ship left outer join db_reception recep on ship.code_shipping=recep.r_code_shipping) sh 
  right outer join db_destination dst on sh.destination=dst.code_destination 
  
- 
-
 
 -- union des tables shipping et colis dans une seule vue
 
@@ -284,10 +281,6 @@ bs.total_toutes_depenses_mensuelles,py.nombre_paiements_mensuels,py.total_mensue
 from bugget_shippings bs left outer join sommation_paiements_mensuels py
 on concat(bs.mois,bs.annee)=concat(py.mois_numerique,py.annee)
 order by bs.annee desc,bs.mois_en_lettres desc
-
-
-
-
 
 
 select act.code_row,act.periode_exploitation,act.mois,act.mois_en_lettres,act.annee,act.budget_total,act.colis_du_mois,

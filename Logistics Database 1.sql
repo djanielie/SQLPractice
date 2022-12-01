@@ -31,7 +31,7 @@ create table db_budget_mensuel(code_enregistrement  varchar(10),periode_exploita
 montant_budget float)
 
 
-######################################################################################################################################################
+------------------------------------------------------------------------------------------------------------------------
 Query time
 
 create view solde_client as
@@ -47,8 +47,6 @@ select cli.code_client,nom_client,nombre_colis,total_kg,coalesce(cumul_payable,0
 coalesce(cumul_paye,0) as cumul_paye,(coalesce(cumul_paye,0)-coalesce(cumul_payable,0)) as solde
  from client_infos cli left outer join colis_infos col on cli.code_client=col.proprietaire_colis 
 left outer join paiement_client pay on cli.code_client=pay.code_client
-
-
 
 
 create view synthese_shippings as

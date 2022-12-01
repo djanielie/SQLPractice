@@ -1,3 +1,4 @@
+
 CREATE Table db_destination(id_destination varchar(10) primary key,designation varchar(15))
 
 create table db_envoi_containeur(id_envoi varchar(10) primary key, date_envoi date,id_destination varchar(10), commentaire_envoi varchar(50),
@@ -37,7 +38,7 @@ alter table db_paiement add column id_containeur varchar(10),
 add constraint fk_cont_pay foreign key(id_containeur) references db_containeur(id_containeur);
 alter table db_containeur add column numero_containeur varchar(20);
 alter table db_paiement add column justificatif_paiement varchar(100);
-/////////////////////////////////////////////////////////////////////////////////
+------ Next query
 create view paquet_received as
 WITH ct_dest_col as(
 select cont.id_containeur,cont.numero_containeur,cont.date_envoi,dest.designation as destination,cont.pieds_containeur
@@ -60,7 +61,7 @@ coalesce(count(cols.id_paquet),0) as nombre_colis
 from ct_dest_col cts left join col_prop cols on cts.id_containeur=cols.id_containeur 
 left join rec_col rc on rc.id_containeur=cts.id_containeur 
 group by cts.id_containeur;
-/////////////////////////////////////////////////////////////////////////////////////
+---- ---------------------Next Query
 create view marges as
 WITH ct_dest_col as(
 select cont.id_containeur,cont.numero_containeur,cont.date_envoi,dest.designation as destination,cont.pieds_containeur,
@@ -100,9 +101,7 @@ left outer join db_paiem pay on pay.id_containeur=cts.id_containeur
 group by cts.id_containeur;
 
 
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------------ Next Query
 create view solde_client as
 WITH 
 col_prop as(
@@ -139,14 +138,14 @@ coalesce(pay.montants_payes,0) as montant_paye,
 from db_paiem pay join col_prop cols on pay.id_client=cols.id_client 
 group by pay.id_client;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-----------------Next Query
 create view cont_av_recu as
 select cont.id_containeur, cont.numero_containeur,cont.date_envoi,status_shipping(cont.date_envoi,rec.date_reception) as status_shipping
 from db_containeur cont left outer join db_reception_containeur rec
 on cont.id_containeur=rec.id_containeur
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+------------ Next Query
 create view client_du_containeur as
 select 
 cl.id_client,cl.noms_client,cl.telephone_client,coalesce(cont.id_containeur,"NONE") as id_containeur,
